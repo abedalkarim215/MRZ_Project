@@ -7,8 +7,8 @@ This project allows you to extract MRZ (Machine Readable Zone) information from 
 To use this project, follow these steps:
 
 1. Clone the repository:
-git clone https://github.com/your-username/your-mrz-project.git
-cd your-mrz-project
+git clone https://github.com/abedalkarim99/MRZ_Project
+cd MRZ_Project
 
 2. Create a virtual environment and activate it:
 python3 -m venv venv
@@ -37,8 +37,8 @@ python manage.py runserver
 - If you encounter any issues or have questions, please refer to the project's documentation or open an issue on the GitHub repository.
 
 ## Screenshots
+![example](https://github.com/abedalkarim99/MRZ_Project/assets/42090313/46d36ab8-ae64-42c8-aebe-c74e96c7cedd)
 
-Insert screenshots or GIFs that demonstrate your project's functionality here.
 
 ## Contributing
 
@@ -54,6 +54,3 @@ Contributions are welcome! Please follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgements
-
-Mention any libraries, frameworks, or resources that you used for this project.
