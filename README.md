@@ -8,22 +8,21 @@ To use this project, follow these steps:
 
 1. Clone the repository:
 git clone https://github.com/abedalkarim99/MRZ_Project
-cd MRZ_Project
-
+- cd MRZ_Project
+<br/>
 3. Create a virtual environment and activate it:
 - python3 -m venv venv
 - source venv/bin/activate # On Unix/Linux
 - venv\Scripts\activate # On Windows
-
-5. Install project dependencies using `pip`:
+<br/>
+4. Install project dependencies using `pip`:
 - pip install -r requirements.txt
-
-7. Run the Django development server:
+<br/>
+5. Run the Django development server:
 - python manage.py runserver
-
-
-9. Open your web browser and go to `http://localhost:8000` to access the application.
-
+<br/>
+6. Open your web browser and go to `http://localhost:8000` to access the application.
+<br/><br/>
 ## Usage
 
 1. Upload an image containing MRZ information using the provided form.
