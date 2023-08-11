@@ -11,19 +11,18 @@ git clone https://github.com/abedalkarim99/MRZ_Project
 cd MRZ_Project
 
 3. Create a virtual environment and activate it:
-python3 -m venv venv
-source venv/bin/activate # On Unix/Linux
-venv\Scripts\activate # On Windows
+- python3 -m venv venv
+- source venv/bin/activate # On Unix/Linux
+- venv\Scripts\activate # On Windows
 
 5. Install project dependencies using `pip`:
-pip install -r requirements.txt
+- pip install -r requirements.txt
+
+7. Run the Django development server:
+- python manage.py runserver
 
 
-6. Run the Django development server:
-python manage.py runserver
-
-
-7. Open your web browser and go to `http://localhost:8000` to access the application.
+9. Open your web browser and go to `http://localhost:8000` to access the application.
 
 ## Usage
 
