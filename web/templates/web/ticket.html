@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Material Design for Bootstrap</title>
+  <title>Kuwaiti Ticket Extractor</title>
   <!-- MDB icon -->
 {#  <link rel="icon" href="{% static "web/img/mdb-favicon.ico" %}" type="image/x-icon" />#}
   <!-- Font Awesome -->
@@ -73,20 +73,20 @@
 
 <img
   id="previewImage"
-  src="{% if get %}{% static uploaded_image %}{% else %}{{ uploaded_image }}{% endif %}"
-  alt="Uploaded Image"
+  src="{% static "web/img/PDF.png" %}"
+  alt="Uploaded PDF"
   class="img-fluid my-5"
   style="width: 90%;"
 />
 <form method="post" enctype="multipart/form-data" autocomplete="off">
     {% csrf_token %}
     <div class="mb-3">
-  <input type="file" class="form-control visually-hidden" id="imageInput" name="image" onchange="displayFileName(this)">
-  <label for="imageInput" id="browseButton">Browse Image to Upload</label>
+  <input type="file" class="form-control visually-hidden" id="imageInput" name="file" onchange="displayFileName(this)">
+  <label for="imageInput" id="browseButton">Browse PDF to Upload</label>
     </div>
       <div id="imageName" style="color: gray"></div>
       <hr>
-    <button type="submit" class="btn btn-primary btn-rounded btn-lg">Upload Image</button>
+    <button type="submit" class="btn btn-primary btn-rounded btn-lg">Upload PDF</button>
   </form>
 </div>
 
@@ -97,116 +97,89 @@
                 <h6 style="border-color: black;text-align: center;font-weight: bold;font-size: 20px">Information</h6>
                 <hr style="">
               <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Card type</p>
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Traveler</p>
                 </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ passport_type }}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">First name</p>
-                </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ first_name }}</p>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Traveler }}</p>
                 </div>
               </div>
               <hr>
               <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Second name</p>
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Departure</p>
                 </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ second_name }}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Third name</p>
-                </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ third_name }}</p>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Departure }}</p>
                 </div>
               </div>
               <hr>
               <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Surname</p>
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Arrival</p>
                 </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ surname }}</p>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Arrival }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Duration</p>
+                </div>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Duration }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Booking status</p>
+                </div>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Booking_status }}</p>
                 </div>
               </div>
                 <hr>
               <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Passport number</p>
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Class</p>
                 </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ passport_numebr }}</p>
-                </div>
-              </div>
-                <hr>
-              <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Personal ID number</p>
-                </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ personal_ID_number }}</p>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Class }}</p>
                 </div>
               </div>
                 <hr>
               <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Nationality</p>
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Baggage allowance</p>
                 </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ nationality }}</p>
-                </div>
-              </div>
-                <hr>
-              <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Gender</p>
-                </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ gender }}</p>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Baggage_allowance }}</p>
                 </div>
               </div>
                 <hr>
               <div class="row">
-                <div class="col-sm-5">
-                    <p class="mb-0 PassLabel">Date of birth <span style="color: gray">(Y/M/D)</span></p>
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Equipment</p>
                 </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ date_of_birth }}</p>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Equipment }}</p>
                 </div>
               </div>
-
                 <hr>
               <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">Passport expiry date <span style="color: gray">(Y/M/D)</span></p>
+                <div class="col-sm-4">
+                  <p class="mb-0 PassLabel">Flight meal</p>
                 </div>
-                <div class="col-sm-7">
-                  <p class="text-muted mb-0">{{ passport_expiry_date }}</p>
-                </div>
-              </div>
-                <hr>
-                 <div class="row">
-                <div class="col-sm-5">
-                  <p class="mb-0 PassLabel">MRZ code</p>
-                </div><br>
-                <div class="col-sm-12" style="text-align: center">
-                  <p class="text-muted mb-0">{{ mrz_code|linebreaksbr }}</p>
+                <div class="col-sm-8">
+                  <p class="text-muted mb-0">{{ Flight_meal }}</p>
                 </div>
               </div>
                 <hr>
             </div>
-          </div>            </div>
+          </div>
+                </div>
           </div>
         </div>
       </div>
@@ -220,16 +193,6 @@
     const imageNameDiv = document.getElementById("imageName");
     const fileName = input.files[0].name;
     imageNameDiv.textContent = fileName;
-
-    const previewImage = document.getElementById("previewImage");
-    const file = input.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-      previewImage.src = event.target.result;
-    };
-
-    reader.readAsDataURL(file);
   }
 </script>
 

@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>MRZ Passport Extractor</title>
+  <!-- MDB icon -->
+{#  <link rel="icon" href="{% static "web/img/mdb-favicon.ico" %}" type="image/x-icon" />#}
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'web/css/bootstrap-profiles.min.css' %}">
+</head>
+
+<body>
+  <!-- Start your project here-->
+  <style>
+    .gradient-custom {
+      /* fallback for old browsers */
+      background: #f6d365;
+
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+    }
+     .visually-hidden {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+  }
+
+  #browseButton {
+    cursor: pointer;
+    display: inline-block;
+    padding: 6px 12px; /* Adjust padding for smaller size */
+    font-size: 14px; /* Adjust font size for smaller size */
+    background-color: transparent; /* Remove background color */
+    color: black; /* Add a color for the text */
+    border: 1px solid black; /* Add a black border */
+    border-radius: 4px;
+    transition: color 0.3s, border-color 0.3s; /* Add border-color transition */
+  }
+
+  #browseButton:hover {
+    color: #0056b3;
+    border-color: #0056b3; /* Change border color on hover */
+  }
+  .PassLabel{
+      color: black;font-weight: bold
+  }
+
+
+  </style>
+  <section class="vh-100" style="background-color: #f4f5f7;">
+    <div class="container py-5 h-100" >
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-10 mb-4 mb-lg-5" >
+          <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+<div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+
+<img
+  id="previewImage"
+  src="{% if get %}{% static uploaded_image %}{% else %}{{ uploaded_image }}{% endif %}"
+  alt="Uploaded Image"
+  class="img-fluid my-5"
+  style="width: 90%;"
+/>
+<form method="post" enctype="multipart/form-data" autocomplete="off">
+    {% csrf_token %}
+    <div class="mb-3">
+  <input type="file" class="form-control visually-hidden" id="imageInput" name="image" onchange="displayFileName(this)">
+  <label for="imageInput" id="browseButton">Browse Image to Upload</label>
+    </div>
+      <div id="imageName" style="color: gray"></div>
+      <hr>
+    <button type="submit" class="btn btn-primary btn-rounded btn-lg">Upload Image</button>
+  </form>
+</div>
+
+
+                <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+                <h6 style="border-color: black;text-align: center;font-weight: bold;font-size: 20px">Information</h6>
+                <hr style="">
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Card type</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ passport_type }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">First name</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ first_name }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Second name</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ second_name }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Third name</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ third_name }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Surname</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ surname }}</p>
+                </div>
+              </div>
+                <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Passport number</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ passport_numebr }}</p>
+                </div>
+              </div>
+                <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Personal ID number</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ personal_ID_number }}</p>
+                </div>
+              </div>
+                <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Nationality</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ nationality }}</p>
+                </div>
+              </div>
+                <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Gender</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ gender }}</p>
+                </div>
+              </div>
+                <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                    <p class="mb-0 PassLabel">Date of birth <span style="color: gray">(Y/M/D)</span></p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ date_of_birth }}</p>
+                </div>
+              </div>
+
+                <hr>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">Passport expiry date <span style="color: gray">(Y/M/D)</span></p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ passport_expiry_date }}</p>
+                </div>
+              </div>
+                <hr>
+                 <div class="row">
+                <div class="col-sm-5">
+                  <p class="mb-0 PassLabel">MRZ code</p>
+                </div><br>
+                <div class="col-sm-12" style="text-align: center">
+                  <p class="text-muted mb-0">{{ mrz_code|linebreaksbr }}</p>
+                </div>
+              </div>
+                <hr>
+            </div>
+          </div>            </div>
+          </div>
+        </div>
+      </div>
+      </div></div>
+  </section>
+  <!-- End your project here-->
+
+  <!-- MDB -->
+<script>
+  function displayFileName(input) {
+    const imageNameDiv = document.getElementById("imageName");
+    const fileName = input.files[0].name;
+    imageNameDiv.textContent = fileName;
+
+    const previewImage = document.getElementById("previewImage");
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      previewImage.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+</script>
+
+  <script type="text/javascript" src="{% static "web/js/mdb.min.js" %}"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript"></script>
+
+
+</body>
+
+</html>

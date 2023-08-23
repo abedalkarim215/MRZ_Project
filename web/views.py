@@ -4,12 +4,22 @@ from passporteye import read_mrz
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
 import pycountry
+import PyPDF2
+from django.conf import settings
+import os
+import re
 
 
 # Create your views here.
 
-class Index(TemplateView):
-    template_name = 'web/index.html'
+class Landing(TemplateView):
+    template_name = 'web/landing.html'
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response(self.get_context_data())
+
+class MRZ_Extractor(TemplateView):
+    template_name = 'web/mrz.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,3 +89,68 @@ class Index(TemplateView):
                 print("Error processing image:", e)
         return self.render_to_response(self.get_context_data())
 
+
+class Ticket(TemplateView):
+    template_name = 'web/ticket.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Access request object using self.request
+        context['Traveler'] = "- "
+        context['Departure'] = "-"
+        context['Arrival'] = "-"
+        context['Duration'] = "-"
+        context['Booking_status'] = "-"
+        context['Class'] = "-"
+        context['Baggage_allowance'] = "-"
+        context['Equipment'] = "-"
+        context['Flight_meal'] = "-"
+        context['uploaded_image'] = "web/img/1.png"
+        context['get'] = True
+        return context
+
+    def extract_ticket_info(self,text):
+        # Define the regular expression patterns to match the desired information
+        patterns = {
+            "Traveler": r"Traveler\s+(.*?)(?=\n|$)",
+            "Departure": r"Departure\s+(\S.*?)(?=\n|$)",
+            "Arrival": r"Arrival\s+(\S.*?)(?=\n|$)",
+            "Duration": r"Duration\s+(\S.*?)(?=\n|$)",
+            "Booking_status": r"Booking status\s+(\S.*?)(?=\n|$)",
+            "Class": r"Class\s+(\S.*?)(?=\n|$)",
+            "Baggage_allowance": r"(\d+\s*Kg\(s\))\s+for\s+.*?(?=\n|$)",
+            "Equipment": r"Equipment\s+(.*?)(?=\n|$)",
+            "Flight_meal": r"(?:Flight meal|Meal)\s+(.*?)(?=\n|$)"
+        }
+
+        ticket_info = {}
+
+        for key, pattern in patterns.items():
+            match = re.search(pattern, text)
+            if match:
+                ticket_info[key] = match.group(1).strip()
+
+        return ticket_info
+
+
+    def extract_text_from_pdf(self, pdf_path):
+        text = ""
+        with open(pdf_path, "rb") as pdf_file:
+            pdf_reader = PyPDF2.PdfReader(pdf_file)
+            for page in pdf_reader.pages:
+                text += page.extract_text()
+        return text
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response(self.get_context_data())
+
+    def post(self, request, *args, **kwargs):
+        uploaded_file = request.FILES.get('file')
+        if uploaded_file:
+            fs = FileSystemStorage(location=settings.MEDIA_ROOT)  # Specify the media root
+            saved_image = fs.save(uploaded_file.name, uploaded_file)
+            pdf_path = fs.path(saved_image)  # Get the full filesystem path
+            ticket_info = self.extract_ticket_info(self.extract_text_from_pdf(pdf_path))
+            ticket_info['get'] = False
+            return render(request, self.template_name, ticket_info)
+        return self.render_to_response(self.get_context_data())
